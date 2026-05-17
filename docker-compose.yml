@@ -1,0 +1,17 @@
+services:
+  immich-hardlink-photo:
+    image: ghcr.io/vmirage/immich-hardlink-photo:latest
+    container_name: immich_hardlink_photo
+    environment:
+      PG_HOST: database
+      PG_PORT: "5432"
+      PG_DB: immich
+      PG_USER: postgres
+      PG_PASSWORD: password
+      SYNC_INTERVAL: "30"
+      SQLITE_DB: /appdata/sync.db
+      PATH_MAP: '{"/data/library": "/data/library.link"}'
+    volumes:
+      - /path/to/appdata:/appdata
+      - /path/to/immich_data:/data
+    restart: unless-restart
